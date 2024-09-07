@@ -1,0 +1,62 @@
+* main circuit with llg solver
+* Define spin current sources
+V_Isx 0 Isx DC 0
+V_Isy 0 Isy DC 0
+V_Isz 0 Isz DC 0
+* Define magnetic field sources (adjust values for your needs)
+V_HBx Hbx 0 DC 0         
+V_HBy Hby 0 DC 0     
+V_HBz Hbz 0 DC 90
+
+
+*defining constant parameters
+.params hp=0 alpha=0.01 Hk=100 Vol=1e-17 Ms=1000
+.param pi=3.1416
+.param gamma=1.76*1e7
+.param hbar=6.62*1e-34/2/pi
+.param q=1.6*1e-19
+
+* Conversion factor for spin-current
+.param conv=hbar/2/q*1e7/Ms/Vol/Hk
+
+*theta45deg phi0
+CTHETA theta 0 568.1818p ic=3.10
+CPHI phi 0 568.1818p ic=0
+
+
+* Conversion when dimensionless currents applied
+
+EHSX hsx 0 value={conv*V(Isx)}  ; Added ground connection (node 0)
+EHSY hsy 0 value={conv*V(Isy)}  ; Added ground connection (node 0)
+EHSZ hsz 0 value={conv*V(Isz)}  ; Added ground connection (node 0)
+
+EHX hx 0 value={V(HBx)/Hk}      ; Added ground connection (node 0)
+EHY hy 0 value={V(HBy)/Hk}      ; Added ground connection (node 0)
+EHZ hz 0 value={V(HBz)/Hk}      ; Added ground connection (node 0)
+
+
+
+GTHETA_uniax 0 theta value={-alpha*sin(V(theta))*cos(V(theta))}
+GTHETA_demag 0 theta value={-hp*(sin(V(phi))+alpha*cos(V(theta))*cos(V(phi)))*sin(V(theta))*cos(V(phi))}
+GTHETA_ext   0 theta value={alpha*cos(V(theta))*sin(V(phi))*V(hy)-cos(V(phi))*V(hy)+sin(V(phi))*V(hx)-alpha*sin(V(theta))*V(hz)+alpha * cos(V(theta)) * cos(V(phi))*V(hx)}
+GTHETA_spin  0 theta value={V(hsy)*cos(V(theta))*sin(V(phi))+alpha*V(hsy)*cos(V(phi))+V(hsx)*cos(V(theta))*cos(V(phi))-V(hsx)*sin(V(phi))*alpha-V(hsz)*sin(V(theta))}
+
+
+
+GPHI_uniax 0 phi value={-cos(V(theta))}
+GPHI_demag 0 phi value={hp*(-cos(V(phi))*cos(V(phi))*cos(V(theta))+alpha*cos(V(phi))*sin(V(phi)))}
+GPHI_ext   0 phi value={-V(hz) +(-alpha*V(hx)*sin(V(phi)) + V(hx)*cos(V(theta) )*cos(V(phi)))/sin(V(theta))+ ( alpha*V(hy)*cos(V(phi))+ V(hy)*cos(V(theta))*sin(V(phi)))/sin(V(theta))}
+
+GPHI_spin  0 phi value={V(hsz)*alpha + 1/sin(V(theta))*(V(hsy)*(-alpha*cos(V(theta))*sin(V(phi))+ cos(V(phi)))+ V(hsx)*(-alpha*cos(V(phi))*cos(V(theta))-sin(V(phi))))}
+
+
+.end
+
+
+
+
+
+
+
+
+
