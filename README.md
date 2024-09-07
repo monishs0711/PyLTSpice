@@ -9,3 +9,5 @@ This is facilitated by this library. It was developed by NUNOBRUM and his team a
 
 As for an example, Ill be implementing it to a nano-device, Magnetic Tunelling junction, which is used to solve a higher order differential (Quantum) equation.
 I have generated the netlist in the required way(cant disclose due to NDA :p)  and the various parameters in the equation appear as the Voltage-Controlled-Current-Sources in the circuit.
+
+You can find help for LTSPICE-> [HERE](https://ltwiki.org/files/LTspiceHelp.chm/html/LT_spice_overview.htm) and PyLTSpice-> [HERE](https://pyltspice.readthedocs.io/en/latest/)
