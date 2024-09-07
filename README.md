@@ -1,4 +1,4 @@
-# PyLTSpice
+# PyLTSpice (with example)
 As the name suggests, this repo will guide you to integrate LTSpice with python scripting. 
 Whys it useful? Obviously LTSpice is an open-source free to use simulator used by academia all around the world. Its beginner friendly, and has  a wide variety of tools for modelling.
 However, as the complexity of the circuit increases, and say that you want to have various parameters being altered and the result has to be computed at every instant; this is hence very cpu intensive; 
